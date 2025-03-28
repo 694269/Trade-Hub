@@ -7,10 +7,12 @@ import { fetchCardData, fetchIncome, fetchLatestInvoices } from '@/app/lib/data'
 export default async function Page() {
   const income = await fetchIncome();
   const latestInvoices = await fetchLatestInvoices();
-  const totalFulfilledInvoices = await fetchCardData();
-  const totalAwaitingInvoices = await fetchCardData();
-  const numberOfInvoices = await fetchCardData();
-  const numberOfSellers = await fetchCardData();
+
+  // Fetch specific data for each card
+  const totalFulfilledInvoices = await fetchCardData('fulfilled');
+  const totalAwaitingInvoices = await fetchCardData('awaiting');
+  const numberOfInvoices = await fetchCardData('invoices');
+  const numberOfSellers = await fetchCardData('sellers');
 
   return (
     <main className="rounded-xl bg-neutral-900 p-6">
@@ -33,8 +35,6 @@ export default async function Page() {
         <IncomeChart income={income} /> 
         <LatestInvoices latestInvoices={latestInvoices} />
       </div>
-      
     </main>
   );
 }
-  

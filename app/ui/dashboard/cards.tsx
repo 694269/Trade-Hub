@@ -13,7 +13,7 @@ const iconMap = {
   invoices: ClipboardDocumentIcon,
 };
 
- {/* export default async function CardWrapper() {
+  export default async function CardWrapper() {
   return (
     <>
        Attention! Uncomment this section when you reach this stage in the course. 
@@ -24,7 +24,7 @@ const iconMap = {
       <Card title="Total Sellers" value={numberOfSellers} type="sellers" /> 
     </>
   );
-} */}
+} 
 
 export function Card({
   title,
