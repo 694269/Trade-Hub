@@ -57,7 +57,7 @@ export async function fetchLatestInvoices() {
  * Fetches card data summarizing invoices and sellers from the database.
  * @returns {Promise<object>} A promise that resolves to an object containing card data.
  */
-export async function fetchCardData() {
+export async function fetchCardData(p0: string) {
   try {
     const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
     const sellerCountPromise = sql`SELECT COUNT(*) FROM sellers`;

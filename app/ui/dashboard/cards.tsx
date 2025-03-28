@@ -14,6 +14,11 @@ const iconMap = {
 };
 
   export default async function CardWrapper() {
+  const totalFulfilledInvoices = 0; // Replace 0 with the actual value or logic to calculate it
+  const totalAwaitingInvoices = 0; // Replace 0 with the actual value or logic to calculate it
+  const numberOfInvoices = 0; // Replace 0 with the actual value or logic to calculate it
+  const numberOfSellers = 0; // Replace 0 with the actual value or logic to calculate it
+
   return (
     <>
        Attention! Uncomment this section when you reach this stage in the course. 
