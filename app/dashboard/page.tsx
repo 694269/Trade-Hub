@@ -3,6 +3,7 @@ import IncomeChart from '@/app/ui/dashboard/income-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { poppins } from '@/app/ui/fonts';
 import { fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
+import InvoiceDebugger from '@/app/components/InvoiceDebugger';
 
 export default async function Page() {
   const income = await fetchIncome();
@@ -34,3 +35,11 @@ export default async function Page() {
   );
 }
   
+export default async function Page() {
+  const income = await fetchIncome();
+  const latestInvoices = await fetchLatestInvoices();
+
+  return (
+    <main className="rounded-xl bg-neutral-900 p-6">
+      <InvoiceDebugger data={latestInvoices} />
+      {/* the rest of your dashboard */}
