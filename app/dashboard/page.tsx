@@ -20,7 +20,7 @@ export default async function Page() {
         Dashboard
       </h1>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <Card title="Earned" value={totalFulfilledInvoices} type="earned" />
+        <Card title="Earned" value={`$${totalFulfilledInvoices.toLocaleString()}`} type="earned" />
         <Card
           title="In Progress"
           value={totalAwaitingInvoices}
