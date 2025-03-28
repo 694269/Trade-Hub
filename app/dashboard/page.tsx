@@ -14,7 +14,6 @@ export default async function Page() {
 
   return (
     <main className="rounded-xl bg-neutral-900 p-6">
-      <InvoiceDebugger data={latestInvoices} />
       <h1
         className={`${poppins.className} mb-4 text-center text-xl text-white md:text-3xl`}
       >
