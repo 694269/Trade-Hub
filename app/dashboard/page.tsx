@@ -8,6 +8,7 @@ export default async function Page() {
   const income = await fetchIncome();
   const latestInvoices = await fetchLatestInvoices();
 
+  console.log("Fetched Invoices:", latestInvoices);
   return (
     <main className="rounded-xl bg-neutral-900 p-6">
       <h1
