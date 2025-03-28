@@ -31,6 +31,14 @@ export default async function Page() {
         <IncomeChart income={income} /> 
         <LatestInvoices latestInvoices={latestInvoices} />
       </div>
+      <div className="text-white">
+        <h2>Debug Invoices</h2>
+          {latestInvoices.map((invoice) => (
+            <div key={invoice.id}>
+          {invoice.name} - {invoice.amount}
+        </div>
+        ))}
+      </div>
     </main>
   );
 }
