@@ -1,11 +1,6 @@
 import { db } from '@vercel/postgres';
 import bcrypt from 'bcrypt';
-import {
-  users,
-  sellers,
-  invoices,
-  income,
-} from '@/app/lib/placeholder-data'; // adjust path if needed
+import { users, sellers, invoices, income } from '@/app/lib/placeholder-data';
 
 async function seedUsers(client) {
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
@@ -17,7 +12,8 @@ async function seedUsers(client) {
       password TEXT NOT NULL
     );
   `;
-  const insertedUsers = await Promise.all(
+
+  const inserted = await Promise.all(
     users.map(async (user) => {
       const hashedPassword = await bcrypt.hash(user.password, 10);
       return client.sql`
@@ -27,7 +23,8 @@ async function seedUsers(client) {
       `;
     })
   );
-  return insertedUsers.length;
+
+  return inserted.length;
 }
 
 async function seedSellers(client) {
@@ -40,6 +37,7 @@ async function seedSellers(client) {
       image_url VARCHAR(255) NOT NULL
     );
   `;
+
   const inserted = await Promise.all(
     sellers.map((s) =>
       client.sql`
@@ -49,6 +47,7 @@ async function seedSellers(client) {
       `
     )
   );
+
   return inserted.length;
 }
 
@@ -63,15 +62,17 @@ async function seedInvoices(client) {
       date DATE NOT NULL
     );
   `;
+
   const inserted = await Promise.all(
-    invoices.map((inv) =>
+    invoices.map((invoice) =>
       client.sql`
         INSERT INTO invoices (seller_id, amount, status, date)
-        VALUES (${inv.seller_id}, ${inv.amount}, ${inv.status}, ${inv.date})
+        VALUES (${invoice.seller_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
         ON CONFLICT (id) DO NOTHING;
       `
     )
   );
+
   return inserted.length;
 }
 
@@ -82,6 +83,7 @@ async function seedIncome(client) {
       income INT NOT NULL
     );
   `;
+
   const inserted = await Promise.all(
     income.map((item) =>
       client.sql`
@@ -91,16 +93,15 @@ async function seedIncome(client) {
       `
     )
   );
+
   return inserted.length;
 }
 
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Only POST requests allowed' });
-  }
-
+// MAIN API HANDLER
+export async function POST() {
   try {
     const client = await db.connect();
+
     const usersCount = await seedUsers(client);
     const sellersCount = await seedSellers(client);
     const invoicesCount = await seedInvoices(client);
@@ -108,15 +109,30 @@ export default async function handler(req, res) {
 
     await client.end();
 
-    return res.status(200).json({
-      message: 'Database seeded successfully',
-      users: usersCount,
-      sellers: sellersCount,
-      invoices: invoicesCount,
-      income: incomeCount,
-    });
+    return new Response(
+      JSON.stringify({
+        message: 'Database seeded successfully!',
+        users: usersCount,
+        sellers: sellersCount,
+        invoices: invoicesCount,
+        income: incomeCount,
+      }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   } catch (err) {
     console.error('Seeding failed:', err);
-    return res.status(500).json({ error: 'Seeding failed', details: err.message });
+    return new Response(
+      JSON.stringify({
+        error: 'Seeding failed',
+        details: err.message,
+      }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 }
