@@ -3,7 +3,7 @@ import IncomeChart from '@/app/ui/dashboard/income-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { poppins } from '@/app/ui/fonts';
 import { fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
-import CardWrapper from '@/app/ui/dashboard/cards';
+
 
 export default async function Page() {
   const income = await fetchIncome();
