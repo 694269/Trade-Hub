@@ -3,15 +3,15 @@ import IncomeChart from '@/app/ui/dashboard/income-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { poppins } from '@/app/ui/fonts';
 import { fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
-
+import InvoiceDebugger from '@/app/components/InvoiceDebugger';
 
 export default async function Page() {
   const income = await fetchIncome();
   const latestInvoices = await fetchLatestInvoices();
 
-  console.log("Fetched Invoices:", latestInvoices);
   return (
     <main className="rounded-xl bg-neutral-900 p-6">
+      <InvoiceDebugger data={latestInvoices} />
       <h1
         className={`${poppins.className} mb-4 text-center text-xl text-white md:text-3xl`}
       >
