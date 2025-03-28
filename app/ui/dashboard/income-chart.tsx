@@ -5,13 +5,13 @@ import { Income } from '@/app/lib/definitions';
 import { fetchIncome } from '@/app/lib/data';
 
 export default async function IncomeChart({ income }: { income: Income[] }) {
-  const income = await fetchIncome();
+  const fetchedIncome = await fetchIncome();
   const chartHeight = 350;
   // Attention! Uncomment this section when you reach this stage in the course.
 
-  const { yAxisLabels, topLabel } = generateYAxis(income);
+  const { yAxisLabels, topLabel } = generateYAxis(fetchedIncome);
 
-  if (!income || income.length === 0) {
+  if (!fetchedIncome || fetchedIncome.length === 0) {
      return <p className="mt-4 text-gray-400">No data available.</p>;
    }
 
@@ -35,7 +35,7 @@ export default async function IncomeChart({ income }: { income: Income[] }) {
             ))}
           </div>
 
-          {income.map((month) => (
+          {fetchedIncome.map((month) => (
             <div key={month.month} className="flex flex-col items-center gap-2">
               <div
                 className="w-full rounded-md bg-sky-700"
