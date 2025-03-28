@@ -2,10 +2,12 @@ import { Card } from '@/app/ui/dashboard/cards';
 import IncomeChart from '@/app/ui/dashboard/income-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { poppins } from '@/app/ui/fonts';
-import { fetchCardData, fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
+import { fetchCardData, fetchLatestInvoices } from '@/app/lib/data';
+import { Suspense } from 'react';
+import { IncomeChartSkeleton } from '@/app/ui/skeletons';
 
 export default async function Page() {
-  const income = await fetchIncome();
+  // const income = await fetchIncome();
   const latestInvoices = await fetchLatestInvoices();
 
   // Fetch specific data for each card
@@ -32,7 +34,9 @@ export default async function Page() {
         <Card title="Total Sellers" value={numberOfSellers} type="sellers" />
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
-        <IncomeChart income={income} /> 
+        <Suspense fallback={<IncomeChartSkeleton />}>
+          <IncomeChart />
+        </Suspense> 
         <LatestInvoices latestInvoices={latestInvoices} />
       </div>
     </main>
