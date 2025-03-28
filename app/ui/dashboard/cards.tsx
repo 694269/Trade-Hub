@@ -13,10 +13,10 @@ const iconMap = {
   invoices: ClipboardDocumentIcon,
 };
 
-export default async function CardWrapper() {
+ {/* export default async function CardWrapper() {
   return (
     <>
-      {/* Attention! Uncomment this section when you reach this stage in the course. */}
+       Attention! Uncomment this section when you reach this stage in the course. 
 
       <Card title="Earned" value={totalFulfilledInvoices} type="earned" />
       <Card title="In Progress" value={totalAwaitingInvoices} type="awaiting" />
@@ -24,7 +24,7 @@ export default async function CardWrapper() {
       <Card title="Total Sellers" value={numberOfSellers} type="sellers" /> 
     </>
   );
-}
+} */}
 
 export function Card({
   title,
