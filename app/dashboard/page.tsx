@@ -2,21 +2,15 @@ import { Card } from '@/app/ui/dashboard/cards';
 import IncomeChart from '@/app/ui/dashboard/income-chart';
 import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { poppins } from '@/app/ui/fonts';
-import { fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
-import {
-  fetchTotalFulfilledInvoices,
-  fetchTotalAwaitingInvoices,
-  fetchNumberOfInvoices,
-  fetchNumberOfSellers,
-} from '@/app/lib/data';
+import { fetchCardData, fetchIncome, fetchLatestInvoices } from '@/app/lib/data';
 
 export default async function Page() {
   const income = await fetchIncome();
   const latestInvoices = await fetchLatestInvoices();
-  const totalFulfilledInvoices = await fetchTotalFulfilledInvoices();
-  const totalAwaitingInvoices = await fetchTotalAwaitingInvoices();
-  const numberOfInvoices = await fetchNumberOfInvoices();
-  const numberOfSellers = await fetchNumberOfSellers();
+  const totalFulfilledInvoices = await fetchCardData();
+  const totalAwaitingInvoices = await fetchCardData();
+  const numberOfInvoices = await fetchCardData();
+  const numberOfSellers = await fetchCardData();
 
   return (
     <main className="rounded-xl bg-neutral-900 p-6">
